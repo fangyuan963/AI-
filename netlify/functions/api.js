@@ -2,7 +2,7 @@
 
 exports.handler = async (event, context) => {
   // 1. 获取请求信息
-  const { httpMethod, path, body, queryStringParameters } = event;
+  const { httpMethod, path, body, queryStringParameters, isBase64Encoded } = event;
 
   // 2. 设置 CORS 头（允许前端跨域调用，同域下其实不需要，但加上无害）
   const headers = {
@@ -28,10 +28,15 @@ exports.handler = async (event, context) => {
   // 5. 路由：分析 JD
   if (path === '/api/analyze' && httpMethod === 'POST') {
     try {
-      // 解析请求体
+      // 解析请求体（支持 Base64 编码）
+      let requestBodyStr = body || '{}';
+      if (isBase64Encoded) {
+        requestBodyStr = Buffer.from(body, 'base64').toString('utf-8');
+      }
+      
       let requestBody;
       try {
-        requestBody = JSON.parse(body || '{}');
+        requestBody = JSON.parse(requestBodyStr);
       } catch (e) {
         return {
           statusCode: 400,
