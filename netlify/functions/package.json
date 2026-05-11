@@ -1,0 +1,7 @@
+{
+  "name": "jd-tool-functions",
+  "version": "1.0.0",
+  "dependencies": {
+    // 这里列出原 backend/package.json 中的依赖，比如 axios, cheerio, puppeteer 等
+  }
+}
