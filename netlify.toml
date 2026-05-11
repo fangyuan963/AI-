@@ -1,13 +1,16 @@
 [build]
+  command = ""  
   publish = "frontend"
   functions = "netlify/functions"
 
+# 将前端 /api/* 请求代理到 Netlify Functions
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
   force = true
 
+# SPA 回退（所有未匹配路径都返回 index.html）
 [[redirects]]
   from = "/*"
   to = "/index.html"
