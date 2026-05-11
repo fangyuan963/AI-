@@ -12,6 +12,7 @@
 
 # SPA 回退（所有未匹配路径都返回 index.html）
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
   status = 200
+  force = true
